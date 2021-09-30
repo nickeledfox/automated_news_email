@@ -17,11 +17,11 @@ class News:
         self.language = language
 
     def get_news(self):
-        url = f'{self.URL}?'\
-        'q={interest}&'\
-        'from={self.from_date}&'\
-        'to={self.to_date}&'\
-        'language={self.language}&'\
+        url = f'{self.URL}'\
+        f'q={self.interest}&'\
+        f'from={self.from_date}&'\
+        f'to={self.to_date}&'\
+        f'language={self.language}&'\
         f'apiKey={API_KEY}'
 
         response = requests.get(url)
@@ -30,7 +30,16 @@ class News:
 
         email_body = ''
         for article in articles:
-            email_body = email_body + article['title'] + '\n' + article['url'] + '\n\n'
+            email_body = \
+                email_body + article['title'] + '\n' + \
+                article['url'] + '\n\n'
 
         return email_body
+
+news = News(interest='apple',
+            from_date='2021-09-12',
+            to_date='2020-09-13',
+            language='en')
+
+print(news.get_news())
 
