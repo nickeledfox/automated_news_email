@@ -2,6 +2,13 @@ import yagmail
 import pandas as pd
 from news import News
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+SENDER = os.getenv('EMAIL_SENDER')
+PASSWORD = os.getenv('EMAIL_PASSWORD')
+
 df = pd.read('emaildata.xlsx')
 
 for index, row in df.iterrows():
