@@ -127,4 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Users xl data for the project testing
 emaildata.xlsx
