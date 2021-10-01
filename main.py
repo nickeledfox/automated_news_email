@@ -10,7 +10,7 @@ load_dotenv()
 SENDER = os.getenv('EMAIL_SENDER')
 PASSWORD = os.getenv('EMAIL_PASSWORD')
 
-df = pd.read('emaildata.xlsx')
+df = pd.read_excel('emaildata.xlsx')
 
 for index, row in df.iterrows():
     news = News(subscriber_interest=row['interest'],
@@ -18,8 +18,8 @@ for index, row in df.iterrows():
                 sort_by='popularity', language='en')
     email = yagmail.SMTP(user=SENDER, password=PASSWORD)
     email.send(to=row['email'],
-               subject="f{row[interest]} daily news",
-               contents=f"{row['name']}\n Check what's on about "
+               subject=f"{row['interest'].capitalize()} daily news",
+               contents=f"{row['name']},\n Check what's on about!"
                         f"{row['interest']} \n{news.get_news()}")
 
 print(df)

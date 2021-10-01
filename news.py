@@ -37,9 +37,10 @@ class News:
 
         return email_body
 
-news = News(subscriber_interest='apple',
-            from_date='2021-09-12',
-            to_date='2020-09-13',
-            sort_by='popularity',
-            language='en')
+if __name__ == '__main__':
+    news = News(subscriber_interest='apple',
+                from_date='2021-09-12',
+                to_date='2020-09-13',
+                sort_by='popularity',
+                language='en')
 
