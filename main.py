@@ -1,5 +1,6 @@
 import yagmail
 import pandas as pd
+
 from news import News
 
 import os
@@ -17,9 +18,8 @@ for index, row in df.iterrows():
                 sort_by='popularity', language='en')
     email = yagmail.SMTP(user=SENDER, password=PASSWORD)
     email.send(to=row['email'],
-               subject='f{row[interest]} daily news',
-               contents='f{row[name]}, n\
-                Check what\'s on about {row[subscriber_interest]}.' \
-                                                                ' {news.get()}')
+               subject="f{row[interest]} daily news",
+               contents=f"{row['name']}\n Check what's on about "
+                        f"{row['interest']} \n{news.get_news()}")
 
 print(df)
