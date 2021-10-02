@@ -8,19 +8,19 @@ URL = 'https://newsapi.org/v2/everything?'
 
 
 class News:
-    def __init__(self, subscriber_interest, from_date,
-                 to_date, sort_by, language):
+    def __init__(self, subscriber_interest, yesterday,
+                 today, sort_by, language):
         self.subscriber_interest = subscriber_interest
-        self.from_date = from_date
-        self.to_date = to_date
+        self.yesterday = yesterday
+        self.today = today
         self.sort_by = sort_by
         self.language = language
 
     def get_news(self):
         url = f'{URL}'\
         f'q={self.subscriber_interest}&'\
-        f'from={self.from_date}&'\
-        f'to={self.to_date}&'\
+        f'from={self.yesterday}&'\
+        f'to={self.today}&'\
         f'sortBy={self.sort_by}'\
         f'language={self.language}&'\
         f'apiKey={API_KEY}'
@@ -39,8 +39,8 @@ class News:
 
 if __name__ == '__main__':
     news = News(subscriber_interest='apple',
-                from_date='2021-09-12',
-                to_date='2020-09-13',
+                yesterday='2021-09-12',
+                today='2020-09-13',
                 sort_by='popularity',
                 language='en')
 

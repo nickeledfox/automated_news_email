@@ -1,5 +1,6 @@
 import yagmail
 import pandas as pd
+import datetime as dt
 
 from news import News
 
@@ -13,13 +14,17 @@ PASSWORD = os.getenv('EMAIL_PASSWORD')
 df = pd.read_excel('emaildata.xlsx')
 
 for index, row in df.iterrows():
+    today = dt.datetime.now()
+    yesterday = today - dt.timedelta(days=1)
     news = News(subscriber_interest=row['interest'],
-                from_date='2021-09-28', to_date='2021-09-29',
-                sort_by='popularity', language='en')
+                yesterday=yesterday.strftime('%Y-%m-%d'),
+                today=today.strftime('%Y-%m-%d'),
+                sort_by=row['sort by'],
+                language=row['language'])
     email = yagmail.SMTP(user=SENDER, password=PASSWORD)
     email.send(to=row['email'],
                subject=f"{row['interest'].capitalize()} daily news",
-               contents=f"{row['name']},\n Check what's on about!"
-                        f"{row['interest']} \n{news.get_news()}")
+               contents=f"{row['name']},\n "
+                        f"Check what's on about {row['interest'].capitalize()}! \n\n"
+                        f"{news.get_news()}")
 
-print(df)
