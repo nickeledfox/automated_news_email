@@ -17,18 +17,9 @@ class News:
         self.language = language
 
     def get_news(self):
-        url = f'{URL}'\
-        f'q={self.subscriber_interest}&'\
-        f'from={self.yesterday}&'\
-        f'to={self.today}&'\
-        f'sortBy={self.sort_by}'\
-        f'language={self.language}&'\
-        f'apiKey={API_KEY}'
+        url = self._build_url()
 
-        response = requests.get(url)
-        content = response.json()
-        articles = content['articles']
-
+        articles = self._get_articles(url)
         email_body = ''
         for article in articles:
             email_body = \
@@ -36,6 +27,23 @@ class News:
                 article['url'] + '\n\n'
 
         return email_body
+
+    def _get_articles(self, url):
+        response = requests.get(url)
+        content = response.json()
+        articles = content['articles']
+        return articles
+
+    def _build_url(self):
+        url = f'{URL}' \
+              f'q={self.subscriber_interest}&' \
+              f'from={self.yesterday}&' \
+              f'to={self.today}&' \
+              f'sortBy={self.sort_by}' \
+              f'language={self.language}&' \
+              f'apiKey={API_KEY}'
+        return url
+
 
 if __name__ == '__main__':
     news = News(subscriber_interest='apple',
